@@ -1,0 +1,206 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.header-section{
+    background-image: url('images/banner.webp');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* font-family: "Hind Siliguri"; */
+}
+
+.hero-content h1{
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: green;
+}
+
+.hero-content p{
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.bt-custom{
+    background-color: #F85606;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: capitalize;
+    color: black;
+    transition: background-color 0.5s ease;
+}
+
+.bt-custom:hover{
+    background-color: green;
+    color: white;
+}
+
+.features-section{
+    padding: 60px 0px;
+}
+
+.features-section h2{
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 600;
+}
+
+.feature-card{
+    background-color: rgb(207, 195, 195);
+    padding: 30px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 20px 8px 20px #DDDDDD;
+    transition: transform 0.5s ease;
+    margin-bottom: 10px;
+}
+
+.feature-card:hover{
+    transform: translateX(10px);
+}
+
+.feature-card img{
+    width: 70px;
+    margin-bottom: 20px;
+}
+
+.feature-card h5{
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.feature-card p{
+    color: white;
+}
+
+.testimonial-section{
+    padding: 60px 0px;
+    background-color: rgb(114, 107, 107);
+    text-align: center;
+}
+
+.testimonial-section h2{
+    margin-bottom: 50px;
+    font-weight: 600;
+    /* color:#F85606; */
+}
+
+.testimonial-content{
+    padding: 30px;
+    background-color: #c64b0e;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    color: white;
+}
+
+.testimonial-content img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.testimonial-content p{
+    font-size: 1.3rem;
+    font-style: italic;
+}
+
+.testimonial-content h5{
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+.checkout-section{
+    padding: 60px 0px;
+}
+
+.checkout-section h2{
+    text-align: center;
+    font-weight: 600px;
+    margin-bottom: 50px;
+}
+
+.checkout-form{
+    max-width: 600px;
+    margin: auto;
+    padding: 15px;
+    background-color: gray;
+    box-shadow: 27px -4px 11px 0px rgb(82, 72, 72);
+}
+
+.checkout-form .custom-input{
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.btn-custom{
+    width: 100%;
+    background-color: #F85606;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.footer{
+    padding: 60px 0px;
+    background-color: rgb(70, 66, 66);
+    color: white;
+}
+
+.footer-content{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* margin-left: 400px; */
+}
+
+.footer-logo{
+    width: 200px;
+    height: 100px;
+    margin-bottom: 15px;
+    background-color: white;
+    margin: auto;
+}
+
+.social-icons{
+    padding: 10px;
+    /* background-color: blue; */
+}
+
+.social-icons a{
+    /* color: white; */
+    font-size: 1.5rem;
+    margin-right: 10px;
+    transition: color 0.5s ease;
+
+}
+
+.social-icons a:hover{
+    color: white;
+}
+
+.social-icons .fb{
+    color: #0866FF;
+
+}
+
+.social-icons .youtube{
+    color: #F70305;
+
+}
+
+.social-icons .twitter{
+    color: rgb(36, 34, 34);
+
+}
