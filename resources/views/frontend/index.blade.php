@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>E-commerce Website</title>
-	
-    @include('frontend.includes.style')
+@extends('frontend.master')
 
-</head>
-<body>
-	@include('frontend.includes.header')
-
-	<main>
-		<!-- /Home Slider -->
+@section('content')
+<!-- /Home Slider -->
 		<section class="home-slider-section">
 			<div class="container">
 				<div class="home__slider-sec-wrap">
@@ -510,11 +499,4 @@
 			</div>
 		</section>
 		<!-- /Popular Product -->
-	</main>
-
-    @include('frontend.includes.footer')
-
-
-	@include('frontend.includes.script')
-</body>
-</html>
+@endsection
