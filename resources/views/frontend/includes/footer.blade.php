@@ -87,7 +87,7 @@
 										Contact Us
 									</a>
 								</li>
-								<li class="footer__list-item">
+								{{-- <li class="footer__list-item">
 									<a href="#" class="footer__list-item-link">
 										Blog
 									</a>
@@ -96,7 +96,7 @@
 									<a href="#" class="footer__list-item-link">
 										Careers
 									</a>
-								</li>
+								</li> --}}
 							</ul>
 						</div>
 					</div>
