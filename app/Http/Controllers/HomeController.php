@@ -50,4 +50,34 @@ class HomeController extends Controller
     {
         return view('frontend.view-type-products');
     }
+
+    public function privacyPolicy ()
+    {
+        return view('frontend.privacy-policy');
+    }
+
+    public function termsCondition ()
+    {
+        return view('frontend.terms-conditions');
+    }
+
+    public function refundPolicy ()
+    {
+        return view('frontend.refund-policy');
+    }
+
+    public function paymentPolicy ()
+    {
+        return view('frontend.payment-policy');
+    }
+
+    public function aboutUs ()
+    {
+        return view('frontend.aboutus');
+    }
+
+    public function contactUs ()
+    {
+        return view('frontend.contact-us');
+    }
 }
