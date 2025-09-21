@@ -21,9 +21,16 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
 
-        $category->image = "test.png";
+        if(isset($request->image)){
+            $imageName = rand().'-category.'.$request->image->extension(); //8767898-category.png
+            $request->image->move('admin/category/', $imageName);
+
+            $category->image = $imageName;
+        }
 
         $category->save();
+
+        toastr()->success('Category Created Successfully!');
         return redirect()->back();
     }
 }
