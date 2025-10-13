@@ -21,16 +21,18 @@
                         <div class="mb-3 col-md-6">
                             <label for="cat_id" class="form-label">Select Category (*)</label>
                             <select name="cat_id" id="cat_id" class="form-control">
-                                <option value="1">Category1</option>
-                                <option value="2">Category2</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="sub_cat_id" class="form-label">Select Sub-Category (Optional)</label>
                             <select name="sub_cat_id" id="sub_cat_id" class="form-control">
                                 <option selected disabled>Select Sub-Category</option>
-                                <option value="1">SubCategory1</option>
-                                <option value="2">SubCategory2</option>
+                                @foreach ($subCategories as $subCategory)
+                                    <option value="{{$subCategory->id}}">{{$subCategory->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3 col-md-6">
@@ -61,7 +63,12 @@
                         <div class="input-group mb-3 col-md-6">
                             <input type="file" accept="image/*" class="form-control" id="image" name="image"
                                 required />
-                            <label class="input-group-text" for="image">Upload</label>
+                            <label class="input-group-text" for="image">Upload Main Image</label>
+                        </div>
+
+                        <div class="input-group mb-3 col-md-6">
+                            <input type="file" accept="image/*" class="form-control" id="gallery_image" name="gallery_image[]" multiple required />
+                            <label class="input-group-text" for="gallery_image">Upload Gallery Images</label>
                         </div>
 
                         <div class="mb-3 col-md-12">
