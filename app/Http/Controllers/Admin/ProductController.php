@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\GalleryImage;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -45,6 +47,7 @@ class ProductController extends Controller
 
         $product->save();
 
+        //Upload Gallery Images
         if(isset($request->gallery_image)){
 
             foreach($request->gallery_image as $galleryImage){
@@ -57,6 +60,36 @@ class ProductController extends Controller
                 $galleryImageObj->gallery_image = $galleryImageName;
                 $galleryImageObj->product_id = $product->id;
                 $galleryImageObj->save();
+            }
+        }
+
+        //Upload Colors
+        if(isset($request->color) && $request->color[0] != null){
+            foreach($request->color as $color_name){
+                if($color_name != null){
+                    $color = new Color();
+
+                    $color->name = $color_name;
+                    $color->slug = Str::slug($color_name);
+                    $color->product_id = $product->id;
+
+                    $color->save();
+                }
+            }
+        }
+
+        //Upload sIZES
+        if(isset($request->size) && $request->size[0] != null){
+            foreach($request->size as $size_name){
+                if($size_name != null){
+                    $size = new Size();
+
+                    $size->name = $size_name;
+                    $size->slug = Str::slug($size_name);
+                    $size->product_id = $product->id;
+
+                    $size->save();
+                }
             }
         }
 

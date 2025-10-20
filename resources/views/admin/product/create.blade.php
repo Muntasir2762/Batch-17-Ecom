@@ -36,6 +36,20 @@
                             </select>
                         </div>
                         <div class="mb-3 col-md-6">
+                            <div class="form-group" id="color_fields">
+                                <label for="color" class="form-label">Color (Optional)</label>
+                                <input type="text" class="form-control mb-2" placeholder="Enter Color" id="color" name="color[]"/>
+                            </div>
+                            <button type="button" class="btn btn-success float-end" id="add_color">Add More</button>
+                        </div>
+                         <div class="mb-3 col-md-6">
+                            <div class="form-group" id="size_fields">
+                                <label for="size" class="form-label">Size (Optional)</label>
+                                <input type="text" class="form-control mb-2" placeholder="Enter Size" id="size" name="size[]"/>
+                            </div>
+                            <button type="button" class="btn btn-success float-end" id="add_size">Add More</button>
+                        </div>
+                        <div class="mb-3 col-md-6">
                             <label for="buying_price" class="form-label">Buying Price (*)</label>
                             <input type="number" class="form-control" placeholder="Enter Buying Price*" id="buying_price" name="buying_price" required/>
                         </div>
@@ -101,6 +115,25 @@
         $(document).ready(function() {
             $('#summernote2').summernote();
         });
+    </script>
+
+
+    {{-- Add More Color --}}
+    <script>
+        $(document).ready(function(){
+            $("#add_color").click(function(){
+                $("#color_fields").append('<input type="text" class="form-control mb-2" placeholder="Enter Color" id="color" name="color[]"/>')
+            })
+        })
+    </script>
+
+    {{-- Add More Size --}}
+    <script>
+        $(document).ready(function(){
+            $("#add_size").click(function(){
+                $("#size_fields").append('<input type="text" class="form-control mb-2" placeholder="Enter Size" id="size" name="size[]"/>')
+            })
+        })
     </script>
 @endpush
 
