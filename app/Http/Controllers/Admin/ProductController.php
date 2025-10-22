@@ -96,4 +96,10 @@ class ProductController extends Controller
         toastr()->success('Product Uploaded Successfully!');
         return redirect()->back();
     }
+
+    public function showProduct ()
+    {
+        $products = Product::with('category', 'subCategory')->paginate(50);
+        return view('admin.product.list', compact('products'));
+    }
 }

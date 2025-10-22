@@ -11,4 +11,19 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function category ()
+    {
+        return $this->belongsTo(Category::class, 'cat_id', 'id');
+    }
+
+    public function subCategory ()
+    {
+        return $this->belongsTo(SubCategory::class, 'sub_cat_id', 'id');
+    }
 }
+
+
+// Product belongsTo Category
+
+// 1. belongsTo
+// 2. hasMany 

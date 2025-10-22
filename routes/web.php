@@ -53,3 +53,6 @@ Route::post('/admin/update/sub-category/{id}', [SubCategoryController::class, 'u
 Route::get('/admin/create/product', [ProductController::class, 'createProduct']);
 Route::post('/admin/store/product', [ProductController::class, 'storeProduct']);
 Route::get('/admin/list/product', [ProductController::class, 'showProduct']);
+Route::get('/admin/edit/product/{id}', [ProductController::class, 'editProduct']);
+Route::post('/admin/update/product/{id}', [ProductController::class, 'updateProduct']);
+Route::get('/admin/delete/product/{id}', [ProductController::class, 'deleteProduct']);

@@ -8,12 +8,12 @@
             <!--begin::Row-->
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Category List</h3>
+                    <h3 class="mb-0">Product List</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Category List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Product List</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Category List</h3>
+                            <h3 class="card-title">Product List</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -39,29 +39,42 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
+                                        <th>Product Name</th>
                                         <th>Category Name</th>
-                                        <th>Image</th>
+                                        <th>Sub-Category Name</th>
+                                        <th>Product Type</th>
+                                        <th>Buying Price</th>
+                                        <th>Regular Price</th>
+                                        <th>Discount Price</th>
+                                        <th>Stock</th>
                                         <th style="width: 40px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
-                                    <tr class="align-middle">
+                                    @foreach ($products as $product)
+                                        <tr class="align-middle">
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$category->name}}</td>
                                         <td>
-                                            <img src="{{asset('admin/category/'.$category->image)}}" height="100" width="100">
+                                            <img src="{{asset('admin/product/'.$product->image)}}" height="100" width="100"><br>
+                                            {{$product->name}}
                                         </td>
+                                        <td>{{$product->category->name??'Not Found'}}</td>
+                                        <td>{{$product->subCategory->name??'Not Found'}}</td>
+                                        <td>{{$product->product_type}}</td>
+                                        <td>{{$product->buying_price}}</td>
+                                        <td>{{$product->regular_price}}</td>
+                                        <td>{{$product->discount_price}}</td>
+                                        <td>{{$product->qty}}</td>
                                         <td>
-                                            <a href="{{url('/admin/edit/category/'.$category->id)}}"><span class="badge text-bg-info">Edit</span></a>
-                                            <a href="{{url('/admin/delete/category/'.$category->id)}}" onclick="return confirm('Are you sure?')"><span class="badge text-bg-danger">Delete</span></a>
+                                            <a href="{{url('/admin/edit/product/'.$product->id)}}"><span class="badge text-bg-info">Edit</span></a>
+                                            <a href="{{url('/admin/delete/product/'.$product->id)}}" onclick="return confirm('Are you sure?')"><span class="badge text-bg-danger">Delete</span></a>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        {{$categories->links('pagination::bootstrap-5')}}
+                        {{$products->links('pagination::bootstrap-5')}}
                         <!-- /.card-body -->
                         {{-- <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 float-end">
