@@ -102,4 +102,52 @@ class ProductController extends Controller
         $products = Product::with('category', 'subCategory')->paginate(50);
         return view('admin.product.list', compact('products'));
     }
+
+    public function deleteProduct ($id)
+    {
+        $product = Product::find($id);
+
+        if($product->image && file_exists('admin/product/'.$product->image)){
+            unlink('admin/product/'.$product->image);
+        }
+
+        //Delete Gallery Images..
+        $galleryImages = GalleryImage::where('product_id', $product->id)->get();
+
+        foreach($galleryImages as $galleryImage){
+
+            if($galleryImage->gallery_image && file_exists('admin/galleryimage/'.$galleryImage->gallery_image)){
+                unlink('admin/galleryimage/'.$galleryImage->gallery_image);
+            }
+
+            $galleryImage->delete();
+        }
+
+        //Delete Colors... 
+        $colors = Color::where('product_id', $product->id)->get();
+
+        foreach($colors as $color){
+            $color->delete();
+        }
+
+        //Delete Sizes...
+        $sizes = Size::where('product_id', $product->id)->get();
+
+        foreach($sizes as $size){
+            $size->delete();
+        }
+
+        $product->delete();
+
+        toastr()->success('Product Deleted Successfully!');
+        return redirect()->back();
+    }
+
+    public function editProduct ($id)
+    {
+        $categories = Category::orderBy('name', 'asc')->get();
+        $subCategories = SubCategory::orderBy('name', 'asc')->get();
+        $product = Product::find($id);
+        return view('admin.product.edit', compact('categories', 'subCategories', 'product'));
+    }
 }
