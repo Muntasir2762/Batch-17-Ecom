@@ -148,6 +148,101 @@ class ProductController extends Controller
         $categories = Category::orderBy('name', 'asc')->get();
         $subCategories = SubCategory::orderBy('name', 'asc')->get();
         $product = Product::find($id);
-        return view('admin.product.edit', compact('categories', 'subCategories', 'product'));
+        $colors = Color::where('product_id', $product->id)->get();
+        $sizes = Size::where('product_id', $product->id)->get();
+        $galleryImages = GalleryImage::where('product_id', $product->id)->get();
+        return view('admin.product.edit', compact('categories', 'subCategories', 'product', 'colors', 'sizes', 'galleryImages'));
+    }
+
+    public function updateProduct (Request $request, $id)
+    {
+        $product = Product::find($id);
+        
+        $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
+        $product->sku_code = $request->sku_code;
+        $product->cat_id = $request->cat_id;
+        $product->sub_cat_id = $request->sub_cat_id;
+        $product->buying_price = $request->buying_price;
+        $product->regular_price = $request->regular_price;
+        $product->discount_price = $request->discount_price;
+        $product->qty = $request->qty;
+        $product->product_type = $request->product_type;
+        $product->description = $request->description;
+        $product->product_policy = $request->product_policy;
+
+        if(isset($request->image)){
+
+            if($product->image && file_exists('admin/product/'.$product->image)){
+                unlink('admin/product/'.$product->image);
+            }
+
+            $imageName = rand().'-mainimage.'.$request->image->extension(); //8767898-mainimage.png
+            $request->image->move('admin/product/', $imageName);
+
+            $product->image = $imageName;
+        }
+
+        $product->save();
+
+        //Update Colors...
+        if(isset($request->color) && ($request->color[0] != null || $request->color[1] != null)){
+            $colors = Color::where('product_id', $product->id)->get();
+            foreach($colors as $color){
+                $color->delete();
+            }
+
+            foreach($request->color as $color_name){
+                if($color_name != null){
+                    $color = new Color();
+
+                    $color->name = $color_name;
+                    $color->slug = Str::slug($color_name);
+                    $color->product_id = $product->id;
+
+                    $color->save();
+                }
+            }
+        }
+
+        //Update Sizes...
+        if(isset($request->size) && ($request->size[0] != null || $request->size[1] != null)){
+            $sizes = Size::where('product_id', $product->id)->get();
+            foreach($sizes as $size){
+                $size->delete();
+            }
+
+            foreach($request->size as $size_name){
+                if($size_name != null){
+                    $size = new Size();
+
+                    $size->name = $size_name;
+                    $size->slug = Str::slug($size_name);
+                    $size->product_id = $product->id;
+
+                    $size->save();
+                }
+            }
+        }
+
+        toastr()->success('Updated Successfully!');
+        return redirect()->back();
+    }
+
+    //Color, Size, GalleryImage Delete...
+    public function deleteColor ($id)
+    {
+        $color = Color::find($id);
+        $color->delete();
+
+        return redirect()->back();
+    }
+
+    public function deleteSize ($id)
+    {
+        $size = Size::find($id);
+        $size->delete();
+
+        return redirect()->back();
     }
 }

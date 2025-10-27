@@ -43,6 +43,10 @@
                             <div class="form-group" id="color_fields">
                                 <label for="color" class="form-label">Color (Optional)</label>
                                 <input type="text" class="form-control mb-2" placeholder="Enter Color" id="color" name="color[]"/>
+                                @foreach ($colors as $color)
+                                    <input type="text" class="form-control" value="{{$color->name}}" placeholder="Enter Color" id="color" name="color[]"/>
+                                    <a href="{{url('/admin/delete/color/'.$color->id)}}" class="btn btn-danger mb-2">Delete</a>
+                                @endforeach
                             </div>
                             <button type="button" class="btn btn-success float-end" id="add_color">Add More</button>
                         </div>
@@ -50,6 +54,10 @@
                             <div class="form-group" id="size_fields">
                                 <label for="size" class="form-label">Size (Optional)</label>
                                 <input type="text" class="form-control mb-2" placeholder="Enter Size" id="size" name="size[]"/>
+                                @foreach ($sizes as $size)
+                                    <input type="text" class="form-control" value="{{$size->name}}" placeholder="Enter Size" id="size" name="size[]"/>
+                                    <a href="{{url('/admin/delete/size/'.$size->id)}}" class="btn btn-danger mb-2">Delete</a>
+                                @endforeach
                             </div>
                             <button type="button" class="btn btn-success float-end" id="add_size">Add More</button>
                         </div>
@@ -93,11 +101,14 @@
                         <img src="{{asset('admin/product/'.$product->image)}}" style="width: 150px; height: 100px">
 
                         <div class="input-group mb-3 col-md-6 mt-2">
-                            <input type="file" accept="image/*" class="form-control" id="gallery_image" name="gallery_image[]" multiple required />
+                            <input type="file" accept="image/*" class="form-control" id="gallery_image" name="gallery_image[]" multiple />
                             <label class="input-group-text" for="gallery_image">Upload Gallery Images</label>
                         </div>
+                        @foreach ($galleryImages as $galleryImage)
+                            <img src="{{asset('admin/galleryimage/'.$galleryImage->gallery_image)}}" style="width: 150px; height: 100px">
+                        @endforeach
 
-                        <div class="mb-3 col-md-12">
+                        <div class="mb-3 col-md-12 mt-2">
                             <label for="summernote" class="form-label">Product Description (*)</label>
                             <textarea name="description" id="summernote" placeholder="Enter Product Description*" required>{{$product->description}}</textarea>
                         </div>
