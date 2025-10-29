@@ -14,14 +14,14 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function createProduct ()
+    public function createProduct()
     {
         $categories = Category::orderBy('name', 'asc')->get();
         $subCategories = SubCategory::orderBy('name', 'asc')->get();
         return view('admin.product.create', compact('categories', 'subCategories'));
     }
 
-    public function storeProduct (Request $request)
+    public function storeProduct(Request $request)
     {
         $product = new Product();
 
@@ -38,8 +38,8 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->product_policy = $request->product_policy;
 
-        if(isset($request->image)){
-            $imageName = rand().'-mainimage.'.$request->image->extension(); //8767898-mainimage.png
+        if (isset($request->image)) {
+            $imageName = rand() . '-mainimage.' . $request->image->extension(); //8767898-mainimage.png
             $request->image->move('admin/product/', $imageName);
 
             $product->image = $imageName;
@@ -48,13 +48,13 @@ class ProductController extends Controller
         $product->save();
 
         //Upload Gallery Images
-        if(isset($request->gallery_image)){
+        if (isset($request->gallery_image)) {
 
-            foreach($request->gallery_image as $galleryImage){
+            foreach ($request->gallery_image as $galleryImage) {
 
                 $galleryImageObj = new GalleryImage();
 
-                $galleryImageName = rand().'-galleryimage.'.$galleryImage->extension(); //8767898-galleryimage.png
+                $galleryImageName = rand() . '-galleryimage.' . $galleryImage->extension(); //8767898-galleryimage.png
                 $galleryImage->move('admin/galleryimage/', $galleryImageName);
 
                 $galleryImageObj->gallery_image = $galleryImageName;
@@ -64,9 +64,9 @@ class ProductController extends Controller
         }
 
         //Upload Colors
-        if(isset($request->color) && $request->color[0] != null){
-            foreach($request->color as $color_name){
-                if($color_name != null){
+        if (isset($request->color) && $request->color[0] != null) {
+            foreach ($request->color as $color_name) {
+                if ($color_name != null) {
                     $color = new Color();
 
                     $color->name = $color_name;
@@ -79,9 +79,9 @@ class ProductController extends Controller
         }
 
         //Upload sIZES
-        if(isset($request->size) && $request->size[0] != null){
-            foreach($request->size as $size_name){
-                if($size_name != null){
+        if (isset($request->size) && $request->size[0] != null) {
+            foreach ($request->size as $size_name) {
+                if ($size_name != null) {
                     $size = new Size();
 
                     $size->name = $size_name;
@@ -97,27 +97,27 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    public function showProduct ()
+    public function showProduct()
     {
         $products = Product::with('category', 'subCategory')->paginate(50);
         return view('admin.product.list', compact('products'));
     }
 
-    public function deleteProduct ($id)
+    public function deleteProduct($id)
     {
         $product = Product::find($id);
 
-        if($product->image && file_exists('admin/product/'.$product->image)){
-            unlink('admin/product/'.$product->image);
+        if ($product->image && file_exists('admin/product/' . $product->image)) {
+            unlink('admin/product/' . $product->image);
         }
 
         //Delete Gallery Images..
         $galleryImages = GalleryImage::where('product_id', $product->id)->get();
 
-        foreach($galleryImages as $galleryImage){
+        foreach ($galleryImages as $galleryImage) {
 
-            if($galleryImage->gallery_image && file_exists('admin/galleryimage/'.$galleryImage->gallery_image)){
-                unlink('admin/galleryimage/'.$galleryImage->gallery_image);
+            if ($galleryImage->gallery_image && file_exists('admin/galleryimage/' . $galleryImage->gallery_image)) {
+                unlink('admin/galleryimage/' . $galleryImage->gallery_image);
             }
 
             $galleryImage->delete();
@@ -126,14 +126,14 @@ class ProductController extends Controller
         //Delete Colors... 
         $colors = Color::where('product_id', $product->id)->get();
 
-        foreach($colors as $color){
+        foreach ($colors as $color) {
             $color->delete();
         }
 
         //Delete Sizes...
         $sizes = Size::where('product_id', $product->id)->get();
 
-        foreach($sizes as $size){
+        foreach ($sizes as $size) {
             $size->delete();
         }
 
@@ -143,7 +143,7 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    public function editProduct ($id)
+    public function editProduct($id)
     {
         $categories = Category::orderBy('name', 'asc')->get();
         $subCategories = SubCategory::orderBy('name', 'asc')->get();
@@ -154,10 +154,10 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('categories', 'subCategories', 'product', 'colors', 'sizes', 'galleryImages'));
     }
 
-    public function updateProduct (Request $request, $id)
+    public function updateProduct(Request $request, $id)
     {
         $product = Product::find($id);
-        
+
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->sku_code = $request->sku_code;
@@ -171,13 +171,13 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->product_policy = $request->product_policy;
 
-        if(isset($request->image)){
+        if (isset($request->image)) {
 
-            if($product->image && file_exists('admin/product/'.$product->image)){
-                unlink('admin/product/'.$product->image);
+            if ($product->image && file_exists('admin/product/' . $product->image)) {
+                unlink('admin/product/' . $product->image);
             }
 
-            $imageName = rand().'-mainimage.'.$request->image->extension(); //8767898-mainimage.png
+            $imageName = rand() . '-mainimage.' . $request->image->extension(); //8767898-mainimage.png
             $request->image->move('admin/product/', $imageName);
 
             $product->image = $imageName;
@@ -186,14 +186,15 @@ class ProductController extends Controller
         $product->save();
 
         //Update Colors...
-        if(isset($request->color) && ($request->color[0] != null || $request->color[1] != null)){
+        // if(isset($request->color) && ($request->color[0] != null || $request->color[1] != null)){
+        if (isset($request->color) && !empty($request->color) && (isset($request->color[0]) && $request->color[0] != null || isset($request->color[1]) && $request->color[1] != null)) {
             $colors = Color::where('product_id', $product->id)->get();
-            foreach($colors as $color){
+            foreach ($colors as $color) {
                 $color->delete();
             }
 
-            foreach($request->color as $color_name){
-                if($color_name != null){
+            foreach ($request->color as $color_name) {
+                if ($color_name != null) {
                     $color = new Color();
 
                     $color->name = $color_name;
@@ -206,14 +207,15 @@ class ProductController extends Controller
         }
 
         //Update Sizes...
-        if(isset($request->size) && ($request->size[0] != null || $request->size[1] != null)){
+        // if(isset($request->size) && !empty($request->size) && ($request->size[0] != null || $request->size[1] != null)){
+        if (isset($request->size) && !empty($request->size) && (isset($request->size[0]) && $request->size[0] != null || isset($request->size[1]) && $request->size[1] != null)) {
             $sizes = Size::where('product_id', $product->id)->get();
-            foreach($sizes as $size){
+            foreach ($sizes as $size) {
                 $size->delete();
             }
 
-            foreach($request->size as $size_name){
-                if($size_name != null){
+            foreach ($request->size as $size_name) {
+                if ($size_name != null) {
                     $size = new Size();
 
                     $size->name = $size_name;
@@ -225,12 +227,40 @@ class ProductController extends Controller
             }
         }
 
+        //GalleryImage Update...
+        if (isset($request->gallery_image)) {
+
+            //Delete Gallery Images..
+            $galleryImages = GalleryImage::where('product_id', $product->id)->get();
+
+            foreach ($galleryImages as $galleryImage) {
+
+                if ($galleryImage->gallery_image && file_exists('admin/galleryimage/' . $galleryImage->gallery_image)) {
+                    unlink('admin/galleryimage/' . $galleryImage->gallery_image);
+                }
+
+                $galleryImage->delete();
+            }
+
+            foreach ($request->gallery_image as $galleryImage) {
+
+                $galleryImageObj = new GalleryImage();
+
+                $galleryImageName = rand() . '-galleryimage.' . $galleryImage->extension(); //8767898-galleryimage.png
+                $galleryImage->move('admin/galleryimage/', $galleryImageName);
+
+                $galleryImageObj->gallery_image = $galleryImageName;
+                $galleryImageObj->product_id = $product->id;
+                $galleryImageObj->save();
+            }
+        }
+
         toastr()->success('Updated Successfully!');
         return redirect()->back();
     }
 
     //Color, Size, GalleryImage Delete...
-    public function deleteColor ($id)
+    public function deleteColor($id)
     {
         $color = Color::find($id);
         $color->delete();
@@ -238,11 +268,23 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
-    public function deleteSize ($id)
+    public function deleteSize($id)
     {
         $size = Size::find($id);
         $size->delete();
 
+        return redirect()->back();
+    }
+
+    public function deleteGalleryImage($id)
+    {
+        $galleryImage = GalleryImage::find($id);
+
+        if ($galleryImage->gallery_image && file_exists('admin/galleryimage/' . $galleryImage->gallery_image)) {
+            unlink('admin/galleryimage/' . $galleryImage->gallery_image);
+        }
+
+        $galleryImage->delete();
         return redirect()->back();
     }
 }
