@@ -155,3 +155,27 @@
             </div>
         </section>
 @endsection
+
+@push('script')
+
+<script>
+    let qtyInput = document.getElementById('qty');
+    // let qtyInputValue = document.getElementById('qty').value; //"1"
+
+    let minusBtn = document.querySelector('.decrement-btn');
+    let plusBtn = document.querySelector('.increment-btn');
+
+    plusBtn.addEventListener('click', function(){
+        if(parseInt(qtyInput.value) < 5){
+            qtyInput.value = parseInt(qtyInput.value)+1;
+        }
+    });
+
+    minusBtn.addEventListener('click', function(){
+       if(parseInt(qtyInput.value) > 1 ){
+            qtyInput.value = parseInt(qtyInput.value)-1;
+       }
+    });
+</script>
+    
+@endpush
