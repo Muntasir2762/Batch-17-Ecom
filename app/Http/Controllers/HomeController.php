@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -91,5 +92,63 @@ class HomeController extends Controller
     public function contactUs ()
     {
         return view('frontend.contact-us');
+    }
+
+    //Cart functions...
+    public function addToCartDetails (Request $request)
+    {
+
+        $previousCart = Cart::where('product_id', $request->product_id)->where('ip_address', $request->ip())->first();
+
+        if($previousCart == null){
+            $cart = new Cart();
+            $cart->product_id = $request->product_id;
+            $cart->ip_address = $request->ip();
+            $cart->color = $request->color;
+            $cart->size = $request->size;
+            $cart->qty = $request->qty;
+            $cart->price = $request->price;
+
+            $cart->save();
+        }
+        else{
+            $previousCart->color = $request->color;
+            $previousCart->size = $request->size;
+            $previousCart->qty = $request->qty;
+
+            $previousCart->save();
+        }
+
+        toastr()->success('Added to cart successfully');
+
+        if($request->action == "addToCart"){
+            return redirect()->back();
+        }
+        else{
+            return redirect('/checkout');
+        }
+    }
+
+    public function addToCart (Request $request, $id)
+    {
+         $previousCart = Cart::where('product_id', $id)->where('ip_address', $request->ip())->first();
+         $product = Product::find($id);
+
+        if($previousCart == null){
+            $cart = new Cart();
+            $cart->product_id = $id;
+            $cart->ip_address = $request->ip();
+            $cart->qty = 1;
+            $cart->price = $product->discount_price ?? $product->regular_price;
+
+            $cart->save();
+        }
+        else{
+            $previousCart->qty = $previousCart->qty+1;
+            $previousCart->save();
+        }
+
+        toastr()->success('Added to cart successfully!');
+        return redirect()->back();
     }
 }

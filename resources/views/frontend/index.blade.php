@@ -96,7 +96,7 @@
 								<img src="{{asset('admin/product/'.$product->image)}}" alt="Product Image" />
 							</a>
 							<div class="product__item-add-cart-btn-outer">
-								<a href="#" class="product__item-add-cart-btn-inner">
+								<a href="{{url('/product/addtocart/'.$product->id)}}" class="product__item-add-cart-btn-inner">
 									Add to Cart
 								</a>
 							</div>
@@ -144,7 +144,7 @@
 								<img src="{{asset('admin/product/'.$product->image)}}" alt="Product Image" />
 							</a>
 							<div class="product__item-add-cart-btn-outer">
-								<a href="#" class="product__item-add-cart-btn-inner">
+								<a href="{{url('/product/addtocart/'.$product->id)}}" class="product__item-add-cart-btn-inner">
 									Add to Cart
 								</a>
 							</div>
@@ -192,7 +192,7 @@
 								<img src="{{asset('admin/product/'.$product->image)}}" alt="Product Image" />
 							</a>
 							<div class="product__item-add-cart-btn-outer">
-								<a href="#" class="product__item-add-cart-btn-inner">
+								<a href="{{url('/product/addtocart/'.$product->id)}}" class="product__item-add-cart-btn-inner">
 									Add to Cart
 								</a>
 							</div>
@@ -240,7 +240,7 @@
 								<img src="{{asset('admin/product/'.$product->image)}}" alt="Product Image" />
 							</a>
 							<div class="product__item-add-cart-btn-outer">
-								<a href="#" class="product__item-add-cart-btn-inner">
+								<a href="{{url('/product/addtocart/'.$product->id)}}" class="product__item-add-cart-btn-inner">
 									Add to Cart
 								</a>
 							</div>

@@ -36,7 +36,11 @@
                                                 <del>{{$product->regular_price}} Tk.</del>
                                             </span>
                                         </div>
-                                        <div class="product-details-select-items-wrap">
+                                        <form action="{{url('/product-details/addtocart')}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" id="" value="{{$product->id}}">
+                                            <input type="hidden" name="price" id="" value="{{$product->discount_price ?? $product->regular_price}}">
+                                            <div class="product-details-select-items-wrap">
                                             @foreach ($product->color as $scolor)
                                             <div class="product-details-select-item-outer">
                                                 <input type="radio" name="color" id="color" value="{{$scolor->name}}" class="category-item-radio">
@@ -54,7 +58,6 @@
                                             </div>
                                             @endforeach
                                         </div>
-                                        <form action="" method="POST">
                                             <div class="purchase-info-outer">
                                                 <div class="product-incremnt-decrement-outer" style="display: block">
                                                     <a title="Decrement" class="decrement-btn" style="margin-top: -10px;">
