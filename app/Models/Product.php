@@ -35,7 +35,14 @@ class Product extends Model
     {
         return $this->hasMany(GalleryImage::class, 'product_id', 'id');
     }
+
+    public function cartProduct ()
+    {
+        return $this->hasMany(Cart::class, 'product_id', 'id');
+    }
 }
+
+//Product hasMany Cart
 
 //Product hasMany GalleryImage
 

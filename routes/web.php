@@ -28,6 +28,7 @@ Route::get('/contact-us', [HomeController::class, 'contactUs']);
 //Cart Routes...
 Route::post('/product-details/addtocart', [HomeController::class, 'addToCartDetails']);
 Route::get('/product/addtocart/{id}', [HomeController::class, 'addToCart']);
+Route::get('/product/deletecart/{id}', [HomeController::class, 'deleteCart']);
 
 
 //Admin Login

@@ -151,4 +151,12 @@ class HomeController extends Controller
         toastr()->success('Added to cart successfully!');
         return redirect()->back();
     }
+
+    public function deleteCart ($id)
+    {
+        $cart = Cart::find($id);
+        $cart->delete();
+
+        return redirect()->back();
+    }
 }
