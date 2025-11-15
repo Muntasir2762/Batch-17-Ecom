@@ -22,16 +22,12 @@
                                         </div>
                                         <div class="col-md-12 mt-3">
                                             <div style="background: lightgrey;padding: 10px;margin-bottom: 10px;">
-                                                <input type="radio" id="inside_dhaka" name="area" value="80"/>
-                                                <label for="inside_dhaka"
-                                                    style="font-size: 18px;font-weight: 600;color: #000;">Inside Dhaka (80
-                                                    Tk.)</label>
+                                                <input type="radio" id="inside_dhaka" onclick="insideDhakaCharge()" name="area" value="80"/>
+                                                <label for="inside_dhaka" style="font-size: 18px;font-weight: 600;color: #000;">Inside Dhaka (80 Tk.)</label>
                                             </div>
                                             <div style="background: lightgrey;padding: 10px;">
-                                                <input type="radio" id="outside_dhaka" name="area" value="150"/>
-                                                <label for="outside_dhaka"
-                                                    style="font-size: 18px;font-weight: 600;color: #000;">Outside Dhaka (150
-                                                    Tk.)</label>
+                                                <input type="radio" id="outside_dhaka" onclick="outsideDhakaCharge()" name="area" value="150"/>
+                                                <label for="outside_dhaka" style="font-size: 18px;font-weight: 600;color: #000;">Outside Dhaka (150 Tk.)</label>
                                             </div>
                                         </div>
                                     </div>
@@ -40,29 +36,36 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout-items-wrapper">
-                                <div class="checkout-item-outer">
+                                @php
+								    $cartTotal = 0;
+							    @endphp
+                                @foreach ($cartProducts as $cart)
+                                    @php
+									    $cartTotal = $cartTotal + $cart->price * $cart->qty
+								    @endphp
+                                    <div class="checkout-item-outer">
                                     <div class="checkout-item-left">
                                         <div class="checkout-item-image">
-                                            <img src="{{asset('frontend/assets/images/product.png')}}" alt="Image"/>
+                                            <img src="{{asset('admin/product/'.$cart->product->image)}}" alt="Image"/>
                                         </div>
                                         <div class="checkout-item-info">
                                             <h6 class="checkout-item-name">
-                                                Test Product
+                                                {{$cart->product->name}}
                                             </h6>
                                             <p class="checkout-item-price">
-                                                300 Tk.
+                                                {{$cart->price}} Tk.
                                             </p>
                                             <span class="checkout-item-count">
-                                                1 item
+                                                {{$cart->qty}} item
                                             </span>
                                             <br />
                                             <span class="checkout-item-count">
-                                                Size:                                                 
+                                                Size: {{$cart->size}}                                             
                                             </span>                                                
                                             <span class="checkout-item-count">
-                                                Color: 
+                                                Color: {{$cart->color}}
                                             </span>
-                                            <div class="checkout-product-incre-decre">
+                                            {{-- <div class="checkout-product-incre-decre">
                                                 <button type="button" title="Decrement" class="qty-decrement-btn">
                                                     <i class="fas fa-minus"></i>
                                                 </button>
@@ -70,27 +73,29 @@
                                                 <button type="button" title="Increment" class="qty-increment-btn">
                                                     <i class="fas fa-plus"></i>
                                                 </button>                                                
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                     <div class="checkout-item-right">
-                                        <a href="#" class="delete-btn">
+                                        <a href="{{url('/product/deletecart/'.$cart->id)}}" class="delete-btn">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </div>
                                 </div>
+                                @endforeach
                                 <div class="sub-total-wrap">
                                     <div class="sub-total-item">
                                          <strong>Sub Total</strong>
-                                        <strong id="subTotal">৳ 300</strong>
+                                         <strong id="subTotal">৳ {{$cartTotal}}</strong>
+                                         <input type="hidden" name="cartTotalInput" id="cartTotalInput" value="{{$cartTotal}}">
                                     </div>
                                     <div class="sub-total-item">
                                         <strong>Delivery charge</strong>
-                                        <strong id="deliveryCharge">৳ 80</strong>
+                                        <strong id="deliveryCharge">৳ 0</strong>
                                     </div>
                                     <div class="sub-total-item grand-total">
                                          <strong>Grand Total</strong>
-                                         <strong id="grandTotal">৳ 380</strong>
+                                         <strong id="grandTotal">৳ {{$cartTotal}}</strong>
                                     </div>
                                 </div>
                                 <div class="payment-item-outer">
@@ -119,3 +124,25 @@
             </div>
         </section>
 @endsection
+
+@push('script')
+    <script>
+        function insideDhakaCharge (){
+            let cartTotal = parseFloat(document.getElementById('cartTotalInput').value); //7900
+            let grandTotal = cartTotal+80;
+
+            document.getElementById('deliveryCharge').innerHTML = '৳ '+80;
+            document.getElementById('grandTotal').innerHTML = '৳ '+grandTotal;
+            
+        }
+
+        function outsideDhakaCharge (){
+            let cartTotal = parseFloat(document.getElementById('cartTotalInput').value); //7900
+            let grandTotal = cartTotal+150;
+
+            document.getElementById('deliveryCharge').innerHTML = '৳ '+150;
+            document.getElementById('grandTotal').innerHTML = '৳ '+grandTotal;
+            
+        }
+    </script>
+@endpush
