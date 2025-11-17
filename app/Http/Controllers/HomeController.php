@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -157,6 +158,23 @@ class HomeController extends Controller
         $cart = Cart::find($id);
         $cart->delete();
 
+        return redirect()->back();
+    }
+
+    //Conform Order...
+    public function confirmOrder (Request $request)
+    {
+        $order = new Order();
+
+        $order->ip_address = $request->ip();
+        $order->invoice_number = "XY-1";
+        $order->name = $request->name;
+        $order->phone = $request->phone;
+        $order->address = $request->address;
+        $order->charge = $request->charge;
+        $order->price = $request->grandTotalInput;
+
+        $order->save();
         return redirect()->back();
     }
 }

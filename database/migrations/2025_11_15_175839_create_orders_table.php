@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('ip_address');
+            $table->string('invoice_number');
+            $table->string('name');
+            $table->string('phone');
+            $table->longText('address');
+            $table->integer('charge');
+            $table->double('price');
+            $table->string('status')->default('pending')->comment('pending, cancelled, confirmed, delivered, returned');
+            $table->string('consignment_id')->nullable();
+            $table->string('tracking_code')->nullable();
+            $table->string('courier_name')->nullable();
             $table->timestamps();
         });
     }

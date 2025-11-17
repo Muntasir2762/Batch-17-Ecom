@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
+            $table->double('price');
+            $table->integer('qty');
             $table->timestamps();
         });
     }
