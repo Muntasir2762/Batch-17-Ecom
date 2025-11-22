@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -167,14 +168,52 @@ class HomeController extends Controller
         $order = new Order();
 
         $order->ip_address = $request->ip();
-        $order->invoice_number = "XY-1";
+
+        //Previous Orders Count...
+        $orderCount = Order::count();
+        if($orderCount == 0){
+            $generatedInvoice = "XYZ-1";
+        }
+        else{
+            $generatedInvoice = "XYZ-".$orderCount+1;
+        }
+        $order->invoice_number = $generatedInvoice;
         $order->name = $request->name;
         $order->phone = $request->phone;
         $order->address = $request->address;
         $order->charge = $request->charge;
         $order->price = $request->grandTotalInput;
-
         $order->save();
-        return redirect()->back();
+
+        //Order Details...
+        $carts = Cart::where('ip_address', $request->ip())->get();
+
+        foreach($carts as $cartProduct){
+            $orderDetails = new OrderDetails();
+
+            $orderDetails->order_id = $order->id;
+            $orderDetails->product_id = $cartProduct->product_id;
+            $orderDetails->color = $cartProduct->color;
+            $orderDetails->size = $cartProduct->size;
+            $orderDetails->qty = $cartProduct->qty;
+            $orderDetails->price = $cartProduct->price;
+
+            $orderDetails->save();
+            $cartProduct->delete();
+        }
+
+        return redirect('success-order/'.$generatedInvoice);
+    }
+
+    public function successOrder ($orderId)
+    {
+        $order = Order::where('invoice_number', $orderId)->first();
+        if($order == null){
+            toastr()->error('Invalid OrderId');
+            return redirect('/');
+        }
+        else{
+            return view('frontend.thankyou', compact('order'));
+        }
     }
 }

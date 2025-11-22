@@ -32,6 +32,7 @@ Route::get('/product/deletecart/{id}', [HomeController::class, 'deleteCart']);
 
 //Checkout Routes...
 Route::post('/store-order', [HomeController::class, 'confirmOrder']);
+Route::get('/success-order/{order_id}', [HomeController::class, 'successOrder']);
 
 
 //Admin Login
