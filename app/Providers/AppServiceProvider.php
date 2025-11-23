@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('cartProducts', Cart::where('ip_address', request()->ip())->with('product')->get());
             $view->with('cartCount', Cart::where('ip_address', request()->ip())->count());
+            $view->with('categoriesGlobal',Category::with('subCategory')->get());
             
         });
     }

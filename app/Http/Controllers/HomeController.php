@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,9 +22,21 @@ class HomeController extends Controller
         return view('frontend.index', compact('categories', 'hotProducts', 'newProducts', 'regularProducts', 'discountProducts'));
     }
 
-    public function shop ()
+    public function shop (Request $request)
     {
-        return view('frontend.shop');
+        if($request->cat_id){
+            $products = Product::orderBy('id', 'desc')->where('cat_id', $request->cat_id)->paginate(20);
+        }
+        elseif($request->sub_cat_id){
+            $products = Product::orderBy('id', 'desc')->where('sub_cat_id', $request->sub_cat_id)->paginate(20);
+        }
+        else{
+            $products = Product::orderBy('id', 'desc')->paginate(20);
+        }
+        $productCount = $products->count();
+        $categories = Category::get();
+        $subCategories = SubCategory::get();
+        return view('frontend.shop', compact('products', 'categories', 'subCategories', 'productCount'));
     }
 
     public function returnProcess ()
