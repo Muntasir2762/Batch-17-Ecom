@@ -15,7 +15,7 @@ Route::get('/return-process', [HomeController::class, 'returnProcess']);
 Route::get('/view-cart', [HomeController::class, 'viewCart']);
 Route::get('/checkout', [HomeController::class, 'checkout']);
 Route::get('/category-products/{id}', [HomeController::class, 'categoryProducts']);
-Route::get('/sub-category-products', [HomeController::class, 'subCategoryProducts']);
+Route::get('/sub-category-products/{slug}', [HomeController::class, 'subCategoryProducts']);
 Route::get('/product-details/{slug}', [HomeController::class, 'productDetails']);
 Route::get('/view-type-products', [HomeController::class, 'viewTypeProducts']);
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy']);

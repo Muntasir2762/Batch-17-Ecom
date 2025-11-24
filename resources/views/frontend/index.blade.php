@@ -16,7 +16,7 @@
 								<ul class="header__nav-item-category-submenu">
 									@foreach ($category->subCategory as $subCategory)
 										<li class="header__category-submenu-item">
-										<a href="{{url('/sub-category-products')}}" class="header__category-submenu-item-link">
+										<a href="{{url('sub-category-products/'.$subCategory->slug)}}" class="header__category-submenu-item-link">
 											{{$subCategory->name}}
 										</a>
 									</li>
@@ -28,7 +28,7 @@
 					</div>
 					<div class="home__slider-items-wrapper">
 						<div class="home__slider-item-outer">
-							<img src="{{asset('frontend/assets/images/slider.jpg')}}" alt="image" class="home__slider-item-image">
+							<img src="{{asset('admin/settings/'.$siteSettings->hero_banner)}}" alt="image" class="home__slider-item-image">
 						</div>
 					</div>
 				</div>
@@ -64,17 +64,17 @@
 				<div class="row">
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="banner-item-outer">
-							<img src="{{asset('frontend/assets/images/banner.jpeg')}}" alt="banner image" />
+							<img src="{{asset('admin/settings/'.$siteSettings->top_banner1)}}" alt="banner image" />
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="banner-item-outer">
-							<img src="{{asset('frontend/assets/images/banner.jpeg')}}" alt="banner image" />
+							<img src="{{asset('admin/settings/'.$siteSettings->top_banner2)}}" alt="banner image" />
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-sm-6">
 						<div class="banner-item-outer">
-							<img src="{{asset('frontend/assets/images/banner.jpeg')}}" alt="banner image" />
+							<img src="{{asset('admin/settings/'.$siteSettings->top_banner3)}}" alt="banner image" />
 						</div>
 					</div>
 				</div>

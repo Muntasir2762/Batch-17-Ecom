@@ -2,7 +2,7 @@
 		<div class="container">
 			<div class="header-top-wrapper">
 				<a href="{{url('/')}}" class="brand-logo-outer">
-					<img src="{{asset('frontend/assets/images/logo.png')}}" alt="Logo">
+					<img src="{{asset('admin/settings/'.$siteSettings->logo)}}" alt="Logo">
 				</a>
 				<div class="search-form-outer">
 					<form action="" method="GET" class="form-group search-form">
@@ -90,7 +90,7 @@
 										<ul class="header__nav-item-category-submenu">
 											@foreach ($category->subCategory as $subCategory)
 												<li class="header__category-submenu-item">
-												<a href="{{url('/sub-category-products')}}" class="header__category-submenu-item-link">
+												<a href="{{url('sub-category-products/'.$subCategory->slug)}}" class="header__category-submenu-item-link">
 													{{$subCategory->name}}
 												</a>
 											</li>

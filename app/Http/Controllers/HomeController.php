@@ -62,9 +62,12 @@ class HomeController extends Controller
         return view('frontend.category-products', compact('products', 'productCount', 'category'));
     }
 
-    public function subCategoryProducts ()
+    public function subCategoryProducts ($slug)
     {
-        return view('frontend.sub-category-products');
+        $subCategory = SubCategory::where('slug', $slug)->first();
+        $products = Product::where('sub_cat_id',$subCategory->id)->get();
+        $productCount = $products->count();
+        return view('frontend.sub-category-products', compact('subCategory', 'products', 'productCount'));
     }
 
     public function productDetails ($slug)
