@@ -17,13 +17,14 @@ Route::get('/checkout', [HomeController::class, 'checkout']);
 Route::get('/category-products/{id}', [HomeController::class, 'categoryProducts']);
 Route::get('/sub-category-products/{slug}', [HomeController::class, 'subCategoryProducts']);
 Route::get('/product-details/{slug}', [HomeController::class, 'productDetails']);
-Route::get('/view-type-products', [HomeController::class, 'viewTypeProducts']);
+Route::get('/view-type-products/{product_type}', [HomeController::class, 'viewTypeProducts']);
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy']);
 Route::get('/terms-conditions', [HomeController::class, 'termsCondition']);
 Route::get('/refund-policy', [HomeController::class, 'refundPolicy']);
 Route::get('/payment-policy', [HomeController::class, 'paymentPolicy']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
+Route::post('/contact-message-store', [HomeController::class, 'contactMessageStore']);
 
 //Cart Routes...
 Route::post('/product-details/addtocart', [HomeController::class, 'addToCartDetails']);
