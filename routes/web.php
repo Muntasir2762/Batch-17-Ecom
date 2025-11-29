@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -71,3 +72,10 @@ Route::get('/admin/delete/product/{id}', [ProductController::class, 'deleteProdu
 Route::get('/admin/delete/color/{id}', [ProductController::class, 'deleteColor']);
 Route::get('/admin/delete/size/{id}', [ProductController::class, 'deleteSize']);
 Route::get('/admin/delete/gallerimage/{id}', [ProductController::class, 'deleteGalleryImage']);
+
+
+//Settings...
+Route::get('/admin/show-general-setting', [SettingsController::class, 'showSettings']);
+Route::post('/admin/show-general-setting/update', [SettingsController::class, 'updateSettings']);
+Route::get('/admin/show-policies', [SettingsController::class, 'showPolicies']);
+Route::post('/admin/update-policies', [SettingsController::class, 'updatePolicies']);
