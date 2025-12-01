@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function createCategory ()
     {
         return view('admin.category.create');

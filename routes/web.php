@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Models\Settings;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -41,6 +43,8 @@ Route::get('/success-order/{order_id}', [HomeController::class, 'successOrder'])
 Route::get('/admin/login',[AuthController::class, 'adminLoginFrom']);
 
 Auth::routes();
+
+Route::get('/admin/logout', [AdminController::class, 'adminLogout']);
 
 Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard']);
 
@@ -79,3 +83,10 @@ Route::get('/admin/show-general-setting', [SettingsController::class, 'showSetti
 Route::post('/admin/show-general-setting/update', [SettingsController::class, 'updateSettings']);
 Route::get('/admin/show-policies', [SettingsController::class, 'showPolicies']);
 Route::post('/admin/update-policies', [SettingsController::class, 'updatePolicies']);
+
+//Contact Messages..
+Route::get('/admin/show-contact-massages', [SettingsController::class, 'showContacts']);
+Route::get('/admin/delete/contact/{id}', [SettingsController::class, 'deleteContact']);
+
+//Order Routes...
+Route::get('/admin/show-orders', [OrderController::class, 'showOrders']);

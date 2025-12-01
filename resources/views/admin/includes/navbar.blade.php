@@ -34,7 +34,7 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Logout</a>
+                  <a href="{{url('/admin/logout')}}" class="btn btn-default btn-flat float-end">Logout</a>
                 </li>
                 <!--end::Menu Footer-->
               </ul>

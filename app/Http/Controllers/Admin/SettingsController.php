@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMessage;
 use App\Models\Policy;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function showSettings ()
     {
         $settings = Settings::first();
@@ -116,6 +122,22 @@ class SettingsController extends Controller
 
         $policies->save();
         toastr()->success('Policy Updated Successfully!');
+        return redirect()->back();
+    }
+
+    // Contact Messages...
+    public function showContacts ()
+    {
+        $contacts = ContactMessage::paginate(20);
+        return view('admin.settings.show-contacts', compact('contacts'));
+    }
+
+    public function deleteContact ($id)
+    {
+        $contact = ContactMessage::find($id);
+        $contact->delete();
+
+        toastr()->success('Contact Message Deleted Successfully!');
         return redirect()->back();
     }
 }
