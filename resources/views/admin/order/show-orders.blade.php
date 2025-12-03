@@ -50,39 +50,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($categories as $category) --}}
+                                    @foreach ($orders as $order)
                                     <tr class="align-middle">
-                                        <td>1</td>
-                                        <td>XYZ-1</td>
+                                        <td>{{$loop->index+1}}</td>
+                                        <td>{{$order->invoice_number}}</td>
                                         <td>
-                                            Name: Mr.X <br>
-                                            Phone: 01XXXXXXXXX <br>
-                                            Address: Uttara, Dhaka
+                                            Name: {{$order->name}} <br>
+                                            Phone: {{$order->phone}} <br>
+                                            Address: {{$order->address}}
                                         </td>
                                         <td>
-                                            <img src="https://placehold.co/50X50"> <br>
-                                            Smart Watch X 2 <br>
-
-                                            <img src="https://placehold.co/50X50"> <br>
-                                            Smart Watch X 2 <br>
-
-                                            <img src="https://placehold.co/50X50"> <br>
-                                            Smart Watch X 2 <br>
+                                            @foreach ($order->orderDetails as $details)
+                                                <img src="{{asset('admin/product/'.$details->product->image)}}" height="50" width="50"> <br>
+                                                {{$details->product->name}} X {{$details->qty}} <br>
+                                            @endforeach
                                         </td>
-                                        <td>80</td>
-                                        <td>1280</td>
-                                        <td>Steadfast</td>
-                                        <td>Pending</td>
+                                        <td>{{$order->charge}}</td>
+                                        <td>{{$order->price}}</td>
+                                        <td>{{$order->courier_name ?? "Not Found"}}</td>
+                                        <td>{{$order->status}}</td>
                                         <td>
-                                            <a href="#"><span class="badge text-bg-info">Details</span></a>
+                                            <a href="{{url('/admin/order-details/'.$order->id)}}"><span class="badge text-bg-info">Details</span></a>
                                             <a href="#" onclick="return confirm('Are you sure?')"><span class="badge text-bg-danger">Delete</span></a>
                                         </td>
                                     </tr>
-                                    {{-- @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        {{-- {{$categories->links('pagination::bootstrap-5')}} --}}
+                        {{$orders->links('pagination::bootstrap-5')}}
                         <!-- /.card-body -->
                     </div>
                 </div>

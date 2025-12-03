@@ -90,3 +90,4 @@ Route::get('/admin/delete/contact/{id}', [SettingsController::class, 'deleteCont
 
 //Order Routes...
 Route::get('/admin/show-orders', [OrderController::class, 'showOrders']);
+Route::get('/admin/order-details/{id}', [OrderController::class, 'orderDetails']);
