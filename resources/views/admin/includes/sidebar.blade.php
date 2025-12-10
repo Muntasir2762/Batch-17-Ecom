@@ -99,37 +99,37 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{url('/admin/show-orders')}}" class="nav-link">
+                            <a href="{{url('/admin/show-orders/all')}}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>All Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/show-orders/pending')}}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Pending Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/show-orders/confirmed')}}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Confirmed Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/show-orders/delivered')}}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Delivered Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/show-orders/cancelled')}}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Cancelled Orders</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/show-orders/returned')}}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>Returned Orders</p>
                             </a>

@@ -14,9 +14,14 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
-    public function showOrders ()
+    public function showOrders ($status)
     {
-        $orders = Order::orderBy('id', 'desc')->with('orderDetails')->paginate(50);
+        if($status == "all"){
+            $orders = Order::orderBy('id', 'desc')->with('orderDetails')->paginate(50);
+        }
+        else{
+            $orders = Order::orderBy('id', 'desc')->where('status', $status)->with('orderDetails')->paginate(50);
+        }
         return view('admin.order.show-orders', compact('orders'));
     }
 
