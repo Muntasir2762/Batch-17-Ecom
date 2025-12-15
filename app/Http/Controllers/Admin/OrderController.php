@@ -59,4 +59,19 @@ class OrderController extends Controller
 
         $orderDetails->save();
     }
+
+
+    //Invoice Function...
+    public function orderInvoice ($order_id)
+    {
+        $order = Order::where('id', $order_id)->with('orderDetails')->first();
+        return view('admin.order.order-invoice', compact('order'));
+    }
+
+    public function orderBulkInvoice (Request $request)
+    {
+        $orderIds = $request->order_id;
+        $orders = Order::whereIn('id', $orderIds)->with('orderDetails')->get();
+        return view('admin.order.order-bulk-invoice', compact('orders'));
+    }
 }

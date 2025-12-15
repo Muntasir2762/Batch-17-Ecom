@@ -93,3 +93,5 @@ Route::get('/admin/show-orders/{status}', [OrderController::class, 'showOrders']
 Route::get('/admin/order-details/{id}', [OrderController::class, 'orderDetails']);
 Route::post('/admin/order-update/{id}', [OrderController::class, 'orderUpdate']);
 Route::post('/admin/order-detaisl-update/{id}', [OrderController::class, 'orderDetailsUpdate']);
+Route::get('/admin/order-invoice/{order_id}', [OrderController::class, 'orderInvoice']);
+Route::post('/admin/bulk-order-invoice', [OrderController::class, 'orderBulkInvoice']);
