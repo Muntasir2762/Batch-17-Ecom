@@ -45,6 +45,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th style="width: 10px">#</th>
                                             <th>Invoice Number</th>
                                             <th>Customer Info</th>
@@ -85,10 +86,11 @@
                                                 <td>{{ $order->courier_name ?? 'Not Found' }}</td>
                                                 <td>{{ $order->status }}</td>
                                                 <td>
-                                                    <a href="{{ url('/admin/order-details/' . $order->id) }}"><span
-                                                            class="badge text-bg-info">Details</span></a>
-                                                    <a href="#" onclick="return confirm('Are you sure?')"><span
-                                                            class="badge text-bg-danger">Delete</span></a>
+                                                    <a href="{{ url('/admin/order-details/' . $order->id) }}"><span class="badge text-bg-info">Details</span></a>
+                                                    <a href="#" onclick="return confirm('Are you sure?')"><span class="badge text-bg-danger">Delete</span></a>
+                                                    @if ($order->consignment_id == null)
+                                                        <a href="{{ url('/admin/order-courier-entry/' . $order->id) }}"><span class="badge text-bg-success">Courier Entry</span></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
