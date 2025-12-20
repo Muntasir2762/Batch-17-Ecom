@@ -12,6 +12,17 @@ use App\Http\Controllers\HomeController;
 use App\Models\Settings;
 use Illuminate\Support\Facades\Auth;
 
+
+//Config cache clear
+Route::get('clear', function () {
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:clear');
+    \Artisan::call('route:clear');
+    \Artisan::call('view:clear');
+    \Artisan::call('optimize');
+    dd("All clear!");
+});
+
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/shop', [HomeController::class, 'shop']);
 Route::get('/return-process', [HomeController::class, 'returnProcess']);
